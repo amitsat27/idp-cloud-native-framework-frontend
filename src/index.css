@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+:root {
+  /* Premium Light Mode */
+  --bg-app: #f8fafc;
+  --bg-sidebar: #ffffff;
+  --bg-surface: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent: #2563eb;
+  --border: #e2e8f0;
+  --sidebar-width: 280px;
+  --inspector-width: 500px;
+  --accent-rgb: 37, 99, 235;
+  --font-main: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme='dark'] {
+  /* Premium Deep Dark Mode */
+  --bg-app: #020617;
+  --bg-sidebar: #0f172a;
+  --bg-surface: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #38bdf8;
+  --border: #1e293b;
+}
+
+/* Root Lock: Prevents layout shaking/scrolling */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; 
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Wrapper for everything to the right of the sidebar */
+.main-content-wrapper {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-app);
+}
+
+/* Premium Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+.execution-log-box {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+/* Cluster Status  */
+.sleek-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px; /* Medium roundness [cite: 21] */
+  padding: 22px; /* Medium padding [cite: 21] */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.sleek-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}

@@ -1,0 +1,231 @@
+/* PlanInspector.css - Persistent Toggle Edition */
+
+.title-main {
+  color: var(--text-primary);
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+
+.plan-inspector {
+  width: 600px;
+  background: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  
+  height: 100%;
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+  z-index: 20;
+  transition: width 0.4s cubic-bezier(0.05, 0.7, 0.1, 1);
+  position: relative;
+  overflow: hidden; 
+}
+
+.plan-inspector.collapsed {
+  width: 0 !important;
+  border-left: none;
+}
+.plan-inspector .MuiTab-root {
+  color: var(--text-secondary) !important;
+  font-weight: 700 !important;
+  transition: color 0.5s ease;
+}
+.plan-header .MuiIconButton-root {
+  color: var(--text-primary) !important;
+}
+.plan-inspector .Mui-selected {
+  color: var(--text-primary) !important;
+}
+.plan-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 550px;
+  background: var(--bg-sidebar);
+}
+
+.expand-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: var(--bg-sidebar);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  transition: background 0.2s ease;
+}
+
+.plan-label {
+  color: var(--accent) !important; 
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.expand-handle:hover {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.plan-content, .plan-footer {
+  min-width: 550px;
+}
+.plan-header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-main {
+  font-family: var(--font-main);
+  font-weight: 800; 
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.version-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.live-indicator {
+  width: 6px;
+  height: 6px;
+  background-color: #10b981; 
+  border-radius: 50%;
+  position: relative;
+}
+
+.live-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.resource-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.resource-item:last-child {
+  border-bottom: none;
+}
+
+.res-kind {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+}
+
+.res-name {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  color: var(--text-primary) !important; 
+}
+
+.res-meta {
+  font-size: 0.9rem !important;
+  color: var(--text-secondary);
+}
+
+.plan-card:hover .res-kind {
+  opacity: 0.8;
+}
+
+.modern-tabs .MuiTab-root {
+  color: var(--text-secondary) !important; 
+  transition: color 0.2s ease;
+}
+
+.modern-tabs .Mui-selected {
+  color: var(--text-primary) !important; 
+  font-weight: 700 !important;
+}
+
+.yaml-code-modern, 
+.execution-log-box pre {
+  margin: 0 !important;
+  white-space: pre-wrap !important;
+  font-size: 0.75rem !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
+  line-height: 1.5 !important;
+  font-family: var(--font-mono) !important;
+  color: var(--text-primary) !important; 
+  background: var(--bg-app) !important; 
+  border: 1px solid var(--border) !important;
+}
+
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%; 
+  opacity: 0.25;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.floating-icon {
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state-title {
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+}
+
+.empty-state-subtitle {
+  font-size: 0.65rem !important;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.res-name { font-size: 0.8rem !important; font-weight: 500 !important; color: var(--text-primary) !important; }
+
+.yaml-accordion { border: 1px solid var(--border) !important; background: transparent !important; margin-bottom: 4px !important; }
+
+.yaml-pre {
+  margin: 0; 
+  padding: 16px; 
+  background: var(--bg-app) !important; 
+  color: var(--text-primary) !important;
+  font-family: 'JetBrains Mono', monospace !important; 
+  font-size: 0.7rem !important; 
+  line-height: 1.5; 
+  overflow-x: auto;
+}
