@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import {
   Button, Typography, IconButton, Box, Fade, Skeleton, Tab, Tabs,
   Accordion, AccordionSummary, AccordionDetails, Tooltip, Divider, CircularProgress, LinearProgress, Chip
@@ -20,6 +20,7 @@ import "../styling/PlanInspector.css";
 const IntentChat: React.FC = () => {
   const { messages, setMessages, pendingPlan, setPendingPlan, clearChat } = useChat();
   const [intent, setIntent] = useState("");
+  const [submittedIntent, setSubmittedIntent] = useState("");
   const [loading, setLoading] = useState(false);
   const [applying, setApplying] = useState(false);
   const [isPlanCollapsed, setIsPlanCollapsed] = useState(false);
@@ -28,13 +29,36 @@ const IntentChat: React.FC = () => {
   const abortControllerRef = useRef<AbortController | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const planningMessages = useMemo(() => [
-    "Analyzing your intent...",
-    "Scanning available images...",
-    "Calculating resource requirements...",
-    "Generating Kubernetes manifests...",
-    "Optimizing for cluster capacity...",
-  ], []);
+  const getPlanningMessages = useCallback((intent: string) => {
+    const lower = intent.toLowerCase();
+    if (lower.startsWith("remove") || lower.startsWith("delete")) {
+      return [
+        "Identifying the resource to remove...",
+        "Checking if resource exists in the cluster...",
+        "Preparing deletion plan...",
+        "Verifying dependent resources...",
+        "Finalizing removal strategy...",
+      ];
+    }
+    if (lower.startsWith("scale")) {
+      return [
+        "Analyzing current replica count...",
+        "Checking cluster capacity...",
+        "Calculating optimal replica distribution...",
+        "Preparing scaling plan...",
+        "Finalizing resource adjustments...",
+      ];
+    }
+    return [
+      "Analyzing your intent...",
+      "Scanning available images...",
+      "Calculating resource requirements...",
+      "Generating Kubernetes manifests...",
+      "Optimizing for cluster capacity...",
+    ];
+  }, []);
+
+  const planningMessages = useMemo(() => getPlanningMessages(submittedIntent), [submittedIntent, getPlanningMessages]);
 
   useEffect(() => {
     if (!loading) { setPlanningStep(0); return; }
@@ -71,6 +95,7 @@ const IntentChat: React.FC = () => {
     if (!intent.trim() || loading) return;
     const currentIntent = intent;
     setMessages((p: any) => [...p, { role: "user", text: currentIntent }]);
+    setSubmittedIntent(currentIntent);
     setIntent("");
     setLoading(true);
     setIsPlanCollapsed(true);

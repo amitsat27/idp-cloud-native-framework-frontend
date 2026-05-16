@@ -63,9 +63,16 @@ const ClusterStatus: React.FC = () => {
           </div>
         </Box>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px 14px', borderRadius: '6px', backgroundColor: colors.bg, color: colors.text, border: `1px solid ${colors.border}`, fontWeight: 600, fontSize: '0.75rem', letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: colors.text }}></span>
-          {isOnline === null ? 'Syncing' : isOnline ? 'Connected' : 'Disconnected'}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Tooltip title="Refresh">
+            <IconButton size="small" onClick={fetchData} sx={{ color: 'var(--text-secondary)', '&:hover': { color: 'var(--accent)' } }}>
+              <AutorenewRounded sx={{ fontSize: 20 }} />
+            </IconButton>
+          </Tooltip>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px 14px', borderRadius: '6px', backgroundColor: colors.bg, color: colors.text, border: `1px solid ${colors.border}`, fontWeight: 600, fontSize: '0.75rem', letterSpacing: '0.02em', textTransform: 'uppercase' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: colors.text }}></span>
+            {isOnline === null ? 'Syncing' : isOnline ? 'Connected' : 'Disconnected'}
+          </div>
         </div>
       </div>
 
@@ -141,9 +148,14 @@ const ClusterStatus: React.FC = () => {
             <div key={idx} className="plan-card" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--border)', borderLeft: '3px solid var(--accent)' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                 <Box>
-                  <Typography sx={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.9rem' }}>{workload.name}</Typography>
-                  <Typography sx={{ color: 'var(--accent)', fontWeight: 600, fontSize: '0.75rem' }}>{workload.namespace}</Typography>
-                </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography sx={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.9rem' }}>{workload.name}</Typography>
+                      {workload.type === 'statefulset' && (
+                        <Chip label="STATEFULSET" size="small" sx={{ borderRadius: '4px', height: '18px', fontSize: '0.6rem', fontWeight: 700, color: '#a855f7', border: '1px solid #a855f7', bgcolor: 'rgba(168, 85, 247, 0.08)' }} />
+                      )}
+                    </Box>
+                    <Typography sx={{ color: 'var(--accent)', fontWeight: 600, fontSize: '0.75rem' }}>{workload.namespace}</Typography>
+                  </Box>
                 <Chip label={workload.status} size="small" variant="outlined" sx={{ borderRadius: '4px', fontSize: '0.7rem', fontWeight: 700, height: '20px', color: workload.status === 'Healthy' ? '#10b981' : '#f43f5e', borderColor: workload.status === 'Healthy' ? '#10b981' : '#f43f5e' }} />
               </Box>
 
