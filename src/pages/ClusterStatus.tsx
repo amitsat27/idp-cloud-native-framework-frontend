@@ -81,6 +81,9 @@ const ClusterStatus: React.FC = () => {
           <Typography sx={{ fontWeight: 700, fontSize: '1.5rem', color: 'var(--text-primary)' }}>
             {loading ? <Skeleton width="100px" /> : `${clusterData?.global_metrics?.cpu_used_m}m / ${clusterData?.global_metrics?.cpu_cap_m}m`}
           </Typography>
+          <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.75rem', mt: 0.5 }}>
+            Requested: {loading ? <Skeleton width="60px" sx={{ display: 'inline-block' }} /> : `${clusterData?.global_metrics?.cpu_requested_m}m`}
+          </Typography>
           <Box sx={{ mt: 2 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
               <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: 500 }}>Pressure</Typography>
@@ -98,6 +101,9 @@ const ClusterStatus: React.FC = () => {
           </Box>
           <Typography sx={{ fontWeight: 700, fontSize: '1.5rem', color: 'var(--text-primary)' }}>
             {loading ? <Skeleton width="100px" /> : `${clusterData?.global_metrics?.mem_used_mi}Mi / ${clusterData?.global_metrics?.mem_cap_mi}Mi`}
+          </Typography>
+          <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.75rem', mt: 0.5 }}>
+            Requested: {loading ? <Skeleton width="60px" sx={{ display: 'inline-block' }} /> : `${clusterData?.global_metrics?.mem_requested_mi}Mi`}
           </Typography>
           <Box sx={{ mt: 2 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
@@ -142,12 +148,22 @@ const ClusterStatus: React.FC = () => {
               </Box>
 
               <Box sx={{ background: 'rgba(var(--text-secondary-rgb), 0.04)', p: 1.5, borderRadius: '6px', mb: 2 }}>
-                <Typography sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'var(--text-primary)' }}>
-                  {workload.actual_usage?.cpu || '0m'} CPU Usage
-                </Typography>
-                <Typography sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'var(--text-primary)' }}>
-                  {workload.actual_usage?.memory || '0Mi'} RAM Usage
-                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.5 }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'var(--text-primary)' }}>
+                    {workload.actual_usage?.cpu || '0m'} / {workload.requested_usage?.cpu || '?'} CPU
+                  </Typography>
+                  <Typography sx={{ fontWeight: 400, fontSize: '0.65rem', color: 'var(--text-secondary)' }}>
+                    actual / requested
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: '0.8rem', color: 'var(--text-primary)' }}>
+                    {workload.actual_usage?.memory || '0Mi'} / {workload.requested_usage?.memory || '?'} RAM
+                  </Typography>
+                  <Typography sx={{ fontWeight: 400, fontSize: '0.65rem', color: 'var(--text-secondary)' }}>
+                    actual / requested
+                  </Typography>
+                </Box>
               </Box>
 
               <Box sx={{ display: 'flex', gap: 1 }}>

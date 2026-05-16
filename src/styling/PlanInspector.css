@@ -1,4 +1,4 @@
-/* PlanInspector.css - Persistent Toggle Edition */
+/* PlanInspector.css - Fixed for 100% height */
 
 .title-main {
   color: var(--text-primary);
@@ -7,22 +7,25 @@
 }
 
 .plan-inspector {
-  width: 600px;
+  width: 500px;
+  min-width: 400px;
+  max-width: 40%;
   background: var(--bg-sidebar);
   display: flex;
   flex-direction: column;
-  
   height: 100%;
+  min-height: 100vh;
   border-left: 1px solid var(--border);
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
   z-index: 20;
   transition: width 0.4s cubic-bezier(0.05, 0.7, 0.1, 1);
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .plan-inspector.collapsed {
   width: 0 !important;
+  min-width: 0;
   border-left: none;
 }
 .plan-inspector .MuiTab-root {
@@ -37,12 +40,12 @@
   color: var(--text-primary) !important;
 }
 .plan-header {
-  padding: 24px;
+  padding: 16px 24px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 550px;
+  flex-shrink: 0;
   background: var(--bg-sidebar);
 }
 
@@ -73,7 +76,8 @@
 }
 
 .plan-content, .plan-footer {
-  min-width: 550px;
+  flex: 1;
+  overflow: auto;
 }
 .plan-header-title {
   display: flex;
